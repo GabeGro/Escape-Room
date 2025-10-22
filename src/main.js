@@ -1,3 +1,5 @@
+'use strict';
+
 let config = {
     type: Phaser.AUTO,
     width: 600,
@@ -9,9 +11,18 @@ let config = {
             debug: false
         }
     },
-    scene: [ Menu , Play ]
+    scene: [ Load, Menu, Play ]
+}
+
+let textConfig = {
+    fontFamily: 'Courier',
+    fontSize: '24px',
+    color: '#000',
 }
 
 let game = new Phaser.Game(config)
 
-let { width, height } = game.config
+let w = game.config.width;
+let h = game.config.height;
+let centerX = w/2;
+let centerY = h/2;
