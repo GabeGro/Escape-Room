@@ -15,8 +15,10 @@ class RoomOne extends Phaser.Scene {
         this.add.image(400, 195, 'roomOneBG').setScale(1.01)
 
         this.ladderButton = this.add.rectangle(75, 200, 100, 350, 0x000000, 0).setInteractive().on('pointerdown', () => {
-            if (this.power)
+            if (this.power) {
                 console.log("You Win!")
+                this.waterFinished = true
+            }
             else
                 console.log("Emergency Lock -> restore power")
         })
@@ -114,8 +116,10 @@ class RoomOne extends Phaser.Scene {
             this.water.y -= this.waterSpeed
         }
 
-        if (this.water.y <= 200)
+        if (this.water.y <= 200) {
             this.waterFinished = true
+            this.restartButton.visible = true
+        }
 
         /*const delta = this.game.loop.delta / 1000;
         if (!this.waterFinished) {

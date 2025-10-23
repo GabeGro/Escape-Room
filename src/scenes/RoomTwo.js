@@ -80,8 +80,10 @@ class RoomTwo extends Phaser.Scene {
             this.water.y -= this.waterSpeed
         }
 
-        if (this.water.y <= 200)
+        if (this.water.y <= 200) {
             this.waterFinished = true
+            this.restartButton.visible = true
+        }
 
 
         /*const delta = this.game.loop.delta / 1000
