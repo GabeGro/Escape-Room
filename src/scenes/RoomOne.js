@@ -10,19 +10,25 @@ class RoomOne extends Phaser.Scene {
     create() {
         console.log("room1")
         this.add.rectangle(400, 200, w, h, 0xBDBDBD, 1)
+        this.activeClue
 
+        //create exit button for clues
+        this.exitButton = this.add.image(30, 30, 'exitButton').setScale(0.15).setInteractive().on('pointerdown', () => {
+            this.activeClue.visible = false
+            this.exitButton.visible = false
+        })
+        this.exitButton.visible = false
+
+        //create clue buttons
         this.portraitButton = this.add.image(400, 200, 'portrait-front').setScale(0.25).setInteractive().on('pointerdown', () => {
             this.portraitClue.visible = true
             this.exitButton.visible = true
+            this.activeClue = this.portraitClue
         })
 
+        //create clue menus
         this.portraitClue = new Toggle(this, 400, 200, 'portrait-front', 'portrait-back').setScale(0.5)
-        this.exitButton = this.add.image(30, 30, 'exitButton').setScale(0.15).setInteractive().on('pointerdown', () => {
-            this.portraitClue.visible = false
-            this.exitButton.visible = false
-        })
         this.portraitClue.visible = false
-        this.exitButton.visible = false
 
         this.waterFinished = false
 
@@ -36,7 +42,7 @@ class RoomOne extends Phaser.Scene {
             y: h + 50,
             color: 0x1E90FF,
             alpha: 0.75,
-            fillTime: 10, // change here to adjust fill time in seconds!
+            fillTime: 60, // change here to adjust fill time in seconds!
             distanceToFill: h + 50,
             get speed() {
                 return this.distanceToFill / this.fillTime;
@@ -64,6 +70,7 @@ class RoomOne extends Phaser.Scene {
     }
     update() {
         this.portraitClue.update()
+
         const delta = this.game.loop.delta / 1000;
         if (!this.waterFinished) {
             this.water.y -= this.water.speed * delta;
