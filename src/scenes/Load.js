@@ -19,7 +19,7 @@ class Load extends Phaser.Scene {
         this.load.path = './assets/';
         this.load.image('toggleOn', 'toggleOn.png')
         this.load.image('toggleOff', 'toggleOff.png')
-        this.load.image('exitButton', 'exitButton.png')
+        this.load.image('exitButton', 'ExitButton.png')
         this.load.image('portrait-front', 'PortraitFront.png')
         this.load.image('portrait-back', 'PortraitBack.png')
 

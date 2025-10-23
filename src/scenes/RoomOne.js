@@ -10,6 +10,19 @@ class RoomOne extends Phaser.Scene {
     create() {
         console.log("room1")
         this.add.image(400, 195, 'roomOneBG').setScale(1.01)
+
+        this.ladderButton = this.add.rectangle(75, 200, 100, 350, 0x000000, 0).setInteractive().on('pointerdown', () => {
+            console.log("Emergency Lock -> restore power")
+        })
+
+        this.roomTwoButton = this.add.rectangle(715, 200, 115, 280, 0x000000, 0).setInteractive().on('pointerdown', () => {
+            console.log("Door Locked -> input code")
+        })
+
+        this.keypad = this.add.rectangle(630, 220, 35, 35, 0x000000, 0).setInteractive().on('pointerdown', () => {
+            this.scene.start("roomTwoScene")
+        })
+
         this.activeClue
 
         //create exit button for clues

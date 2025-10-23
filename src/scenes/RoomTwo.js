@@ -8,7 +8,7 @@ class RoomTwo extends Phaser.Scene {
     }
 
     create() {
-        
+        console.log("room2")
     }
 
     update() {
