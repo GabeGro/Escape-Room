@@ -5,7 +5,6 @@ class Keypad extends Phaser.GameObjects.Sprite {
         this.scene = scene
         this.setOrigin(0.5);
         this.code = code
-        this.input = ""
         this.buttons = [];
 
         this.initialX = 315
@@ -14,6 +13,7 @@ class Keypad extends Phaser.GameObjects.Sprite {
     }
 
     createButtons(scene) {
+        this.input = ""
         //console.log("func called")
         for (let i = 0; i < 9; i++) {
             //console.log("loop on")
@@ -36,7 +36,10 @@ class Keypad extends Phaser.GameObjects.Sprite {
 
     toggleVisibility() {
         for (let i = 0; i < 9; i++) {
-            this.buttons[i].visible = false
+            if (this.buttons[i].visible)
+                this.buttons[i].visible = false
+            else
+                this.buttons[i].visible = true
         }
     }
 }

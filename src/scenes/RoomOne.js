@@ -41,8 +41,13 @@ class RoomOne extends Phaser.Scene {
             this.exitButton.visible = true
             this.activeClue = this.keypad
             this.pauseRect.visible = true
+
+            if (this.keypad.buttons[1])
+                this.keypad.toggleVisibility()
+
             this.keypad.createButtons(this)
-            this.keypad.input = ""
+
+            //this.keypad.input = ""
         })
 
         //create clue buttons
@@ -76,7 +81,12 @@ class RoomOne extends Phaser.Scene {
         //this.waterFinished = false
 
         this.restartButton = new Button(this, centerX, centerY, 'Restart', () => {
-            this.scene.restart()
+            this.scene.start("roomOneScene", {
+                locked: true,
+                power: false,
+                waterInitial: 600
+            })
+            
         })
         this.restartButton.setDepth(20)
         this.restartButton.visible = false
