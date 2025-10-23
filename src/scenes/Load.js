@@ -23,6 +23,7 @@ class Load extends Phaser.Scene {
         this.load.image('portrait-front', 'PortraitFront.png')
         this.load.image('portrait-back', 'PortraitBack.png')
 
+        this.load.image('roomOneBG', 'RoomOneBG.png')
     }
 
     create() {

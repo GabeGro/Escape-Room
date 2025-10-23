@@ -4,29 +4,33 @@ class RoomOne extends Phaser.Scene {
     }
 
     preload() {
-      
+
     }
 
     create() {
         console.log("room1")
-        this.add.rectangle(400, 200, w, h, 0xBDBDBD, 1)
+        this.add.image(400, 195, 'roomOneBG').setScale(1.01)
         this.activeClue
 
         //create exit button for clues
-        this.exitButton = this.add.image(30, 30, 'exitButton').setScale(0.15).setInteractive().on('pointerdown', () => {
+        this.exitButton = this.add.image(30, 30, 'exitButton').setScale(0.25).setInteractive().on('pointerdown', () => {
             this.activeClue.visible = false
             this.exitButton.visible = false
+            this.pauseRect.visible = false
         })
         this.exitButton.visible = false
 
         //create clue buttons
-        this.portraitButton = this.add.image(400, 200, 'portrait-front').setScale(0.25).setInteractive().on('pointerdown', () => {
+        this.portraitButton = this.add.image(200, 170, 'portrait-front').setScale(0.2).setInteractive().on('pointerdown', () => {
             this.portraitClue.visible = true
             this.exitButton.visible = true
             this.activeClue = this.portraitClue
+            this.pauseRect.visible = true
         })
 
         //create clue menus
+        this.pauseRect = this.add.rectangle(400, 200, w, h, 0x000000, 0.5)
+        this.pauseRect.visible = false
         this.portraitClue = new Toggle(this, 400, 200, 'portrait-front', 'portrait-back').setScale(0.5)
         this.portraitClue.visible = false
 
@@ -69,6 +73,8 @@ class RoomOne extends Phaser.Scene {
         }
     }
     update() {
+
+
         this.portraitClue.update()
 
         const delta = this.game.loop.delta / 1000;
