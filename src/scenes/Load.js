@@ -32,7 +32,7 @@ class Load extends Phaser.Scene {
         // Go to room1 scene
         this.locked = true
         this.power = false
-        this.waterInitial = 600
+        this.waterInitial = 625
 
         this.scene.start('roomOneScene', {
             locked: this.locked,
