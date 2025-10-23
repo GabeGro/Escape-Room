@@ -30,7 +30,13 @@ class Load extends Phaser.Scene {
 
     create() {
         // Go to room1 scene
-        this.scene.start('roomOneScene')
+        this.locked = true
+        this.power = false
+
+        this.scene.start('roomOneScene', {
+            locked: this.locked,
+            power: this.power
+        })
     }
 
     update() {}

@@ -3,23 +3,31 @@ class RoomOne extends Phaser.Scene {
         super("roomOneScene")
     }
 
-    preload() {
-
+    init(data) {
+        this.locked = data.locked
+        this.power = data.power
     }
 
     create() {
-        console.log("room1")
+        console.log(this.power)
         this.activeClue
         this.add.image(400, 195, 'roomOneBG').setScale(1.01)
 
         this.ladderButton = this.add.rectangle(75, 200, 100, 350, 0x000000, 0).setInteractive().on('pointerdown', () => {
-            console.log("Emergency Lock -> restore power")
+            if (this.power)
+                console.log("You Win!")
+            else
+                console.log("Emergency Lock -> restore power")
         })
 
         this.roomTwoButton = this.add.rectangle(715, 200, 115, 280, 0x000000, 0).setInteractive().on('pointerdown', () => {
-            if (this.keypad.input == "1515")
-                this.scene.start("roomTwoScene")
-            else
+            if (this.keypad.input == "1515" | !this.locked) {
+                this.locked = false
+                this.scene.start("roomTwoScene", {
+                    locked: this.locked,
+                    power: this.power
+                })
+            } else
                 console.log("Door Locked -> input code")
 
         })
@@ -100,8 +108,6 @@ class RoomOne extends Phaser.Scene {
         }
     }
     update() {
-
-
         this.portraitClue.update()
 
         const delta = this.game.loop.delta / 1000;

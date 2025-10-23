@@ -12,14 +12,14 @@ let config = {
         }
     },
     scene: [ Load, RoomOne, RoomTwo ],
-    plugins: {
+    /*plugins: {
         global: [
-            { key: 'PhaserDebug', plugin: Phaser.Debug, start: false }
+            { key: 'DomContainer', plugin: Phaser.GameObjects.DOM.DOMPlugin, start: true }
         ]
     },
     dom: {
         createContainer: true
-    }
+    }*/
 }
 
 let textConfig = {
