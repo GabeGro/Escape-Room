@@ -36,6 +36,11 @@ class RoomOne extends Phaser.Scene {
 
         })
 
+        if (this.locked)
+            this.add.rectangle(627, 190, 10, 10, 0xFF0000, 1)
+        else
+            this.add.rectangle(627, 190, 10, 10, 0x00FF00, 1)
+        
         this.keypadButton = this.add.rectangle(630, 220, 35, 35, 0x000000, 0).setInteractive().on('pointerdown', () => {
             this.keypad.visible = true
             this.exitButton.visible = true
@@ -66,8 +71,13 @@ class RoomOne extends Phaser.Scene {
             this.activeClue.visible = false
             this.exitButton.visible = false
             this.pauseRect.visible = false
-            if (this.activeClue == this.keypad)
+            if (this.activeClue == this.keypad) {
                 this.keypad.toggleVisibility()
+                if (this.keypad.input == "1515") {
+                    console.log("Door Unlocked!")
+                    this.add.rectangle(627, 190, 10, 10, 0x00FF00, 1)
+                }
+            }
         })
         this.exitButton.visible = false
 
