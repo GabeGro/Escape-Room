@@ -11,7 +11,15 @@ let config = {
             debug: false
         }
     },
-    scene: [ Load, RoomOne, RoomTwo ]
+    scene: [ Load, RoomOne, RoomTwo ],
+    plugins: {
+        global: [
+            { key: 'PhaserDebug', plugin: Phaser.Debug, start: false }
+        ]
+    },
+    dom: {
+        createContainer: true
+    }
 }
 
 let textConfig = {

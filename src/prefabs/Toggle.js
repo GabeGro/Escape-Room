@@ -2,11 +2,10 @@
 // I pulled this from another project of mine, should make a good starting point
 class Toggle extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, frontTexture, backTexture) {
-        super(scene, x, y, frontTexture, backTexture)
+        super(scene, x, y)
         scene.add.existing(this)
         this.setOrigin(0.5);
         this.setInteractive();
-        this.scene = scene
         this.frontTexture = frontTexture
         this.backTexture = backTexture
 

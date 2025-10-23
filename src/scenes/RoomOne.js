@@ -9,6 +9,7 @@ class RoomOne extends Phaser.Scene {
 
     create() {
         console.log("room1")
+        this.activeClue
         this.add.image(400, 195, 'roomOneBG').setScale(1.01)
 
         this.ladderButton = this.add.rectangle(75, 200, 100, 350, 0x000000, 0).setInteractive().on('pointerdown', () => {
@@ -16,22 +17,21 @@ class RoomOne extends Phaser.Scene {
         })
 
         this.roomTwoButton = this.add.rectangle(715, 200, 115, 280, 0x000000, 0).setInteractive().on('pointerdown', () => {
-            console.log("Door Locked -> input code")
+            if (this.keypad.input == "1515")
+                this.scene.start("roomTwoScene")
+            else
+                console.log("Door Locked -> input code")
+
         })
 
-        this.keypad = this.add.rectangle(630, 220, 35, 35, 0x000000, 0).setInteractive().on('pointerdown', () => {
-            this.scene.start("roomTwoScene")
+        this.keypadButton = this.add.rectangle(630, 220, 35, 35, 0x000000, 0).setInteractive().on('pointerdown', () => {
+            this.keypad.visible = true
+            this.exitButton.visible = true
+            this.activeClue = this.keypad
+            this.pauseRect.visible = true
+            this.keypad.createButtons(this)
+            this.keypad.input = ""
         })
-
-        this.activeClue
-
-        //create exit button for clues
-        this.exitButton = this.add.image(30, 30, 'exitButton').setScale(0.25).setInteractive().on('pointerdown', () => {
-            this.activeClue.visible = false
-            this.exitButton.visible = false
-            this.pauseRect.visible = false
-        })
-        this.exitButton.visible = false
 
         //create clue buttons
         this.portraitButton = this.add.image(200, 170, 'portrait-front').setScale(0.2).setInteractive().on('pointerdown', () => {
@@ -41,11 +41,25 @@ class RoomOne extends Phaser.Scene {
             this.pauseRect.visible = true
         })
 
-        //create clue menus
         this.pauseRect = this.add.rectangle(400, 200, w, h, 0x000000, 0.5)
         this.pauseRect.visible = false
+
+        //create exit button for clues
+        this.exitButton = this.add.image(30, 30, 'exitButton').setScale(0.25).setInteractive().on('pointerdown', () => {
+            this.activeClue.visible = false
+            this.exitButton.visible = false
+            this.pauseRect.visible = false
+            if (this.activeClue == this.keypad)
+                this.keypad.toggleVisibility()
+        })
+        this.exitButton.visible = false
+
+        //create clue menus
         this.portraitClue = new Toggle(this, 400, 200, 'portrait-front', 'portrait-back').setScale(0.5)
         this.portraitClue.visible = false
+
+        this.keypad = new Keypad(this, 400, 200, 'keypad', 1515).setScale(0.75)
+        this.keypad.visible = false
 
         this.waterFinished = false
 
