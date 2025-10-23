@@ -62,6 +62,10 @@ class RoomTwo extends Phaser.Scene {
             this.password = this.passwordPrompt()
         })
 
+        this.bucket = this.add.image(w/4,9*h/10,'bucket').setScale(0.05).setInteractive().on('pointerdown', () => {
+            this.water.y += 5
+        })
+
         this.water = this.add.rectangle(400, this.waterInitial, 800, 400, 0x64C8FA, 0.75)
         this.waterFinished = false
         this.waterSpeed = 0.1
