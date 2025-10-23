@@ -50,10 +50,16 @@ class RoomTwo extends Phaser.Scene {
             })
         })
 
+        if (this.power)
+            this.add.rectangle(660, 190, 20, 20, 0x00ff00, 1)
+        else
+            this.add.rectangle(660, 190, 20, 20, 0xff0000, 1)
+
         this.powerButton = this.add.rectangle(700, 220, 150, 270, 0x000000, 0).setInteractive().on('pointerdown', () => {
             if (this.password == "coffee") {
                 console.log("Power restored!")
                 this.power = true
+                this.add.rectangle(660, 190, 20, 20, 0x00ff00, 1)
             } else
                 console.log("Access computer to restart power")
         })

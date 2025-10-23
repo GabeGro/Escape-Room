@@ -14,13 +14,18 @@ class RoomOne extends Phaser.Scene {
         this.activeClue
         this.add.image(400, 195, 'roomOneBG').setScale(1.01)
 
+
+        this.add.rectangle(175, 50, 100, 50, 0x000000, 0.5)
+        this.add.text(135, 40, "^EXIT", {
+            fontSize: 25
+        })
         this.ladderButton = this.add.rectangle(75, 200, 100, 350, 0x000000, 0).setInteractive().on('pointerdown', () => {
             if (this.power) {
                 console.log("You Win!")
                 this.waterFinished = true
             }
             else
-                console.log("Emergency Lock -> restore power")
+                console.log("Emergency lock activated: Restore power to unlock")
         })
 
         this.roomTwoButton = this.add.rectangle(715, 200, 115, 280, 0x000000, 0).setInteractive().on('pointerdown', () => {
@@ -32,7 +37,7 @@ class RoomOne extends Phaser.Scene {
                     waterInitial: this.water.y
                 })
             } else
-                console.log("Door Locked -> input code")
+                console.log("Door locked: please input code")
 
         })
 
@@ -40,7 +45,7 @@ class RoomOne extends Phaser.Scene {
             this.add.rectangle(627, 190, 10, 10, 0xFF0000, 1)
         else
             this.add.rectangle(627, 190, 10, 10, 0x00FF00, 1)
-        
+
         this.keypadButton = this.add.rectangle(630, 220, 35, 35, 0x000000, 0).setInteractive().on('pointerdown', () => {
             this.keypad.visible = true
             this.exitButton.visible = true

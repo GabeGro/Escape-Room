@@ -24,8 +24,8 @@ let config = {
 
 let textConfig = {
     fontFamily: 'Courier',
-    fontSize: '24px',
-    color: '#000',
+    fontSize: '200 px',
+    color: '#ffffff',
 }
 
 let game = new Phaser.Game(config)
