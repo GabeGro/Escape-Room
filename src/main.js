@@ -2,8 +2,8 @@
 
 let config = {
     type: Phaser.AUTO,
-    width: 600,
-    height: 800,
+    width: 800,
+    height: 400,
     pixelArt: true,
     physics: {
         default: 'arcade',
@@ -11,7 +11,7 @@ let config = {
             debug: false
         }
     },
-    scene: [ Load, Menu, Play ]
+    scene: [ Load, RoomOne, RoomTwo ]
 }
 
 let textConfig = {
