@@ -6,6 +6,7 @@ class RoomTwo extends Phaser.Scene {
     init(data) {
         this.locked = data.locked
         this.power = data.power
+        this.waterInitial = data.waterInitial
     }
 
     create() {
@@ -18,7 +19,7 @@ class RoomTwo extends Phaser.Scene {
         })
         this.restartButton.setDepth(20)
         this.restartButton.visible = false
-        this.water = {
+        /*this.water = {
             y: h + 50,
             color: 0x1E90FF,
             alpha: 0.75,
@@ -36,11 +37,12 @@ class RoomTwo extends Phaser.Scene {
             sampleStep: 8
         }
         this.waterGraphic = this.add.graphics()
-        this.waterGraphic.setDepth(0)
+        this.waterGraphic.setDepth(0)*/
         this.roomOneButton = this.add.rectangle(75, 215, 100, 250, 0x000000, 0).setInteractive().on('pointerdown', () => {
             this.scene.start("roomOneScene", {
                 locked: this.locked,
-                power: this.power
+                power: this.power,
+                waterInitial: this.water.y
             })
         })
 
@@ -55,6 +57,10 @@ class RoomTwo extends Phaser.Scene {
         this.computerButton = this.add.rectangle(450, 170, 150, 100, 0x000000, 0).setInteractive().on('pointerdown', () => {
             this.password = this.passwordPrompt()
         })
+
+        this.water = this.add.rectangle(400, this.waterInitial, 800, 400, 0x64C8FA, 0.75)
+        this.waterFinished = false
+        this.waterSpeed = 0.1
     }
 
     passwordPrompt() {
@@ -70,7 +76,15 @@ class RoomTwo extends Phaser.Scene {
     }
 
     update() {
-        const delta = this.game.loop.delta / 1000
+        if (!this.waterFinished) {
+            this.water.y -= this.waterSpeed
+        }
+
+        if (this.water.y <= 200)
+            this.waterFinished = true
+
+
+        /*const delta = this.game.loop.delta / 1000
         if (!this.waterFinished) {
             this.water.y -= this.water.speed * delta
             const waveSpeed = this.wave.waveSpeedMultiplier * 2 * Math.PI * (this.water.speed / this.wave.wavelength)
@@ -89,11 +103,12 @@ class RoomTwo extends Phaser.Scene {
             const y = this.water.y + Math.sin(theta) * this.wave.amplitude
             points.push(new Phaser.Geom.Point(x, y))
         }
-        const polyPoints = []
+        const polyPoints = []s
         for (let p of points) polyPoints.push(p.x, p.y)
         polyPoints.push(w, h)
         polyPoints.push(0, h)
         const polygon = new Phaser.Geom.Polygon(polyPoints)
         this.waterGraphic.fillPoints(polygon.points, true)
+        */
     }
 }

@@ -6,6 +6,7 @@ class RoomOne extends Phaser.Scene {
     init(data) {
         this.locked = data.locked
         this.power = data.power
+        this.waterInitial = data.waterInitial
     }
 
     create() {
@@ -25,7 +26,8 @@ class RoomOne extends Phaser.Scene {
                 this.locked = false
                 this.scene.start("roomTwoScene", {
                     locked: this.locked,
-                    power: this.power
+                    power: this.power,
+                    waterInitial: this.water.y
                 })
             } else
                 console.log("Door Locked -> input code")
@@ -69,14 +71,20 @@ class RoomOne extends Phaser.Scene {
         this.keypad = new Keypad(this, 400, 200, 'keypad', 1515).setScale(0.75)
         this.keypad.visible = false
 
-        this.waterFinished = false
+        //this.waterFinished = false
 
         this.restartButton = new Button(this, centerX, centerY, 'Restart', () => {
             this.scene.restart()
         })
         this.restartButton.setDepth(20)
         this.restartButton.visible = false
-        this.water = {
+
+        this.water = this.add.rectangle(400, this.waterInitial, 800, 400, 0x64C8FA, 0.75)
+        this.waterFinished = false
+        this.waterSpeed = 0.1
+        
+
+        /*this.water = {
             y: h + 50,
             color: 0x1E90FF,
             alpha: 0.75,
@@ -97,11 +105,19 @@ class RoomOne extends Phaser.Scene {
             }
         };
         this.waterGraphic = this.add.graphics();
-        this.waterGraphic.setDepth(0);
+        this.waterGraphic.setDepth(0);*/
     }
     update() {
         this.portraitClue.update()
-        const delta = this.game.loop.delta / 1000;
+
+        if (!this.waterFinished) {
+            this.water.y -= this.waterSpeed
+        }
+
+        if (this.water.y <= 200)
+            this.waterFinished = true
+
+        /*const delta = this.game.loop.delta / 1000;
         if (!this.waterFinished) {
             this.water.y -= this.water.speed * delta;
             const waveSpeed = this.wave.waveSpeedMultiplier * 2 * Math.PI * (this.water.speed / this.wave.wavelength)
@@ -126,5 +142,6 @@ class RoomOne extends Phaser.Scene {
         polyPoints.push(0, h);
         const polygon = new Phaser.Geom.Polygon(polyPoints);
         this.waterGraphic.fillPoints(polygon.points, true);
+        */
     }
 }
